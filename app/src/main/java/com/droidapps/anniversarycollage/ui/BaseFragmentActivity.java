@@ -12,7 +12,7 @@ import com.google.firebase.analytics.FirebaseAnalytics;
  */
 public class BaseFragmentActivity extends AppCompatActivity {
     //Analytics
-    protected FirebaseAnalytics mFirebaseAnalytics;
+//    protected FirebaseAnalytics mFirebaseAnalytics;
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -39,6 +39,6 @@ public class BaseFragmentActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+//        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
     }
 }

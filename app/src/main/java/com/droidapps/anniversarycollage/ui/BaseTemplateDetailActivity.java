@@ -45,8 +45,6 @@ import com.droidapps.anniversarycollage.utils.ImageUtils;
 import com.droidapps.anniversarycollage.utils.ResultContainer;
 import com.droidapps.anniversarycollage.utils.TemplateImageUtils;
 import com.droidapps.anniversarycollage.utils.frame.FrameImageUtils;
-import com.google.firebase.analytics.FirebaseAnalytics;
-import com.google.firebase.crash.FirebaseCrash;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -470,7 +468,7 @@ public abstract class BaseTemplateDetailActivity extends BasePhotoActivity imple
                 } catch (OutOfMemoryError err) {
                     err.printStackTrace();
                     errMsg = err.getMessage();
-                    FirebaseCrash.report(err);
+//                    FirebaseCrash.report(err);
                 }
                 return null;
             }
@@ -499,13 +497,13 @@ public abstract class BaseTemplateDetailActivity extends BasePhotoActivity imple
                     String ratio = "";
                     if (mLayoutRatio < layoutRatioName.length)
                         ratio = layoutRatioName[mLayoutRatio];
-                    bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "share/frame_".concat(ratio).concat("_").concat(mSelectedTemplateItem.getTitle()));
+//                    bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "share/frame_".concat(ratio).concat("_").concat(mSelectedTemplateItem.getTitle()));
                 } else {
-                    bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "share/template_".concat(mSelectedTemplateItem.getTitle()));
+//                    bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "share/template_".concat(mSelectedTemplateItem.getTitle()));
                 }
 
-                bundle.putString(FirebaseAnalytics.Param.ITEM_ID, mSelectedTemplateItem.getTitle());
-                mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
+//                bundle.putString(FirebaseAnalytics.Param.ITEM_ID, mSelectedTemplateItem.getTitle());
+//                mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
             }
         };
         task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);

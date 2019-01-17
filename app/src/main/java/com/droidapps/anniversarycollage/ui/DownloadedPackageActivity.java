@@ -129,7 +129,7 @@ public class DownloadedPackageActivity extends AdsFragmentActivity implements Se
                             bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, msg);
                             bundle.putString(FirebaseAnalytics.Param.ITEM_ID, str);
                             bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, str);
-                            mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
+//                            mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
                         }
                     }
                 }
