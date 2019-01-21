@@ -687,6 +687,11 @@ public class PhotoCollageFragment extends BaseFragment implements
     }
 
     @Override
+    public void onGooglePhotosClick() {
+
+    }
+
+    @Override
     public void onRemoveButtonClick() {
         if (mSelectedEntity != null) {
             mPhotoView.removeImageEntity(mSelectedEntity);

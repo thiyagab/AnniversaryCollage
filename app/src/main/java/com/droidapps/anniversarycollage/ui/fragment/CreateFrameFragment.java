@@ -596,6 +596,11 @@ public class CreateFrameFragment extends EditImageFragment implements
 	}
 
 	@Override
+	public void onGooglePhotosClick() {
+
+	}
+
+	@Override
 	public void onBackgroundColorButtonClick() {
 
 	}
