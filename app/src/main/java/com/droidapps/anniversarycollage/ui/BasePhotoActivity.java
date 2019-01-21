@@ -75,6 +75,12 @@ public abstract class BasePhotoActivity extends AdsFragmentActivity implements
 
     }
 
+
+    @Override
+    public void  onGooglePhotosClick(){
+
+    }
+
     @Override
     public void onBackgroundColorButtonClick() {
 

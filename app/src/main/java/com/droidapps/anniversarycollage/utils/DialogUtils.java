@@ -386,6 +386,17 @@ public class DialogUtils {
             }
         });
 
+        View gphotosview = rootView.findViewById(R.id.gphotosview);
+        gphotosview.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                if (listener != null) {
+                    listener.onTextButtonClick();
+                }
+            }
+        });
+
         View textView = rootView.findViewById(R.id.textView);
         textView.setOnClickListener(new View.OnClickListener() {
 
@@ -795,6 +806,8 @@ public class DialogUtils {
         public void onStickerButtonClick();
 
         public void onTextButtonClick();
+
+        public void onGooglePhotosClick();
 
         public void onBackgroundPhotoButtonClick();
 

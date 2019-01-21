@@ -302,7 +302,7 @@ public class FramePhotoLayout extends RelativeLayout implements FrameImageView.O
     @Override
     public void onDoubleClickImage(FrameImageView v) {
         if ((v.getImage() == null || v.getImage().isRecycled()) && mQuickActionClickListener != null) {
-            mQuickActionClickListener.onChangeActionClick((FrameImageView) mQuickAction.getAnchorView());
+            mQuickActionClickListener.onChangeActionClick(v);
         } else {
             PointF center = v.getCenterPolygon();
             if (center == null) center = new PointF(v.getWidth() / 2.0f, v.getHeight() / 2.0f);

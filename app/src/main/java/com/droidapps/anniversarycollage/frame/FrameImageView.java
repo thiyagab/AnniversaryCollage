@@ -76,7 +76,7 @@ public class FrameImageView extends ImageView {
             mImage = ResultContainer.getInstance().getImage(photoItem.imagePath);
             if (mImage == null || mImage.isRecycled()) {
                 try {
-                    mImage = ImageDecoder.decodeFileToBitmap(photoItem.imagePath);
+                    mImage = ImageDecoder.decodeFileToBitmap(context,photoItem.imagePath);
                 } catch (OutOfMemoryError err) {
                     FirebaseCrash.report(err);
                     if (context instanceof Activity) {

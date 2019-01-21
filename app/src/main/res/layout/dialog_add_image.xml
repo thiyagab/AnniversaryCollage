@@ -66,6 +66,22 @@
             android:background="#DADADE"/>
 
         <TextView
+            android:id="@+id/gphotosview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="@string/gphotos"
+            android:textColor="#007AFF"
+            android:textSize="16sp"/>
+
+        <View
+            android:id="@+id/dividerGPhotos"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="#DADADE"/>
+
+        <TextView
             android:id="@+id/stickerView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

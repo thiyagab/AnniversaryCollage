@@ -92,7 +92,7 @@
     <string name="creating">Creating...</string>
     <string name="golden_ratio">Golden Ratio</string>
     <string name="fit">Fit</string>
-    <string name="collage">Collage</string>
+    <string name="collage">10 Years Challenge</string>
     <string name="select_ratio">Select Ratio</string>
     <string name="layout_ration">Layout Ratio</string>
     <string name="help">Help</string>
@@ -103,4 +103,6 @@
     <string name="get_pro">Remove Ads</string>
     <string name="default_web_client_id">413558917554-2a13qf70rqkcm2e131f6ca4jivan0ded.apps.googleusercontent.com</string>
     <string name="client_secret">goCr5smO4ll6Y-c8-b4ABppz</string>
+    <string name="gphotos">Google Photos</string>
+    <string name="gphotos_filter">Filter Photos</string>
 </resources>

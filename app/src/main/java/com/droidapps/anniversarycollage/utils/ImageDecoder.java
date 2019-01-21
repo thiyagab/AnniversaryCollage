@@ -277,7 +277,12 @@ public class ImageDecoder {
         return null;
     }
 
-    public static Bitmap decodeFileToBitmap(String pathName)
+    public static Bitmap decodeFileToBitmap(String pathName){
+        return decodeFileToBitmap(null,pathName);
+    }
+
+
+    public static Bitmap decodeFileToBitmap(Context context,String pathName)
             throws OutOfMemoryError {
         try {
             // decode image size
@@ -300,7 +305,10 @@ public class ImageDecoder {
             // decode with inSampleSize
             options.inJustDecodeBounds = false;
             options.inSampleSize = scale;
-
+            if(context!=null && pathName!=null && pathName.contains("android_asset")){
+                pathName=pathName.substring("file:///android_asset/".length());
+                return BitmapFactory.decodeStream(context.getAssets().open(pathName));
+            }
             return BitmapFactory.decodeFile(pathName, options);
         } catch (Exception ex) {
             ex.printStackTrace();

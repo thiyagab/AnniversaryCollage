@@ -121,15 +121,21 @@ public abstract class BaseTemplateDetailActivity extends BasePhotoActivity imple
         this.setSupportActionBar(toolbar);
         ActionBar actionBar = this.getSupportActionBar();
         if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(true);
+//            actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setTitle(R.string.collage);
         }
         mPref = getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
         mLayoutRatio = mPref.getInt(RATIO_KEY, RATIO_SQUARE);
-        mImageInTemplateCount = getIntent().getIntExtra(TemplateActivity.EXTRA_IMAGE_IN_TEMPLATE_COUNT, 0);
+        mImageInTemplateCount = getIntent().getIntExtra(TemplateActivity.EXTRA_IMAGE_IN_TEMPLATE_COUNT, 2);
         mIsFrameImage = getIntent().getBooleanExtra(TemplateActivity.EXTRA_IS_FRAME_IMAGE, true);
         final int selectedItemIndex = getIntent().getIntExtra(TemplateActivity.EXTRA_SELECTED_TEMPLATE_INDEX, 0);
-        final ArrayList<String> extraImagePaths = getIntent().getStringArrayListExtra(TemplateActivity.EXTRA_IMAGE_PATHS);
+        ArrayList<String> extraImagePaths = getIntent().getStringArrayListExtra(TemplateActivity.EXTRA_IMAGE_PATHS);
+
+        if(extraImagePaths==null || extraImagePaths.isEmpty()){
+            extraImagePaths= new ArrayList<>();
+            extraImagePaths.add("file:///android_asset/frame/collage_1_0.png");
+            extraImagePaths.add("file:///android_asset/frame/collage_1_0.png");
+        }
         //pref
         mPreferences = getSharedPreferences(Constant.PREF_NAME, Context.MODE_PRIVATE);
         mContainerLayout = (RelativeLayout) findViewById(R.id.containerLayout);
@@ -570,6 +576,10 @@ public abstract class BaseTemplateDetailActivity extends BasePhotoActivity imple
     public void onBackgroundPhotoButtonClick() {
         mItemType = Constant.BACKGROUND_ITEM;
         pickBackground();
+    }
+
+    public void  onGooglePhotosClick(){
+
     }
 
     @Override

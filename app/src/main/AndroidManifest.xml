@@ -33,7 +33,7 @@
             </intent-filter>
         </receiver>
         <activity
-            android:name="com.droidapps.anniversarycollage.ui.MainActivity"
+            android:name=".ui.FrameDetailActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/app_name"
             android:screenOrientation="portrait">
@@ -67,11 +67,11 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:largeHeap="true"
             android:screenOrientation="portrait"/>
-        <activity
-            android:name=".ui.FrameDetailActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:largeHeap="true"
-            android:screenOrientation="portrait"/>
+        <!--<activity-->
+            <!--android:name=".ui.FrameDetailActivity"-->
+            <!--android:configChanges="orientation|keyboardHidden|screenSize"-->
+            <!--android:largeHeap="true"-->
+            <!--android:screenOrientation="portrait"/>-->
         <activity
             android:name=".ui.SelectPhotoActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"

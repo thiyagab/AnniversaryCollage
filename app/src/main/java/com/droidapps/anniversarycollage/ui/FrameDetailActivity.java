@@ -76,7 +76,7 @@ public class FrameDetailActivity extends BaseTemplateDetailActivity implements F
                 mBackgroundImage = ImageDecoder.decodeUriToBitmap(this, mBackgroundUri);
         }
         //add ads view
-        addAdsView(R.id.adsLayout);
+//        addAdsView(R.id.adsLayout);
         //inflate widgets
         mAddImageDialog.findViewById(R.id.dividerTextView).setVisibility(View.VISIBLE);
         mAddImageDialog.findViewById(R.id.alterBackgroundView).setVisibility(View.VISIBLE);
@@ -122,6 +122,7 @@ public class FrameDetailActivity extends BaseTemplateDetailActivity implements F
 
             }
         });
+        mCornerBar.setVisibility(View.GONE);
         // show guide on first time
         boolean show = mPreferences.getBoolean(Constant.SHOW_GUIDE_CREATE_FRAME_KEY, true);
         if (show) {
@@ -161,6 +162,10 @@ public class FrameDetailActivity extends BaseTemplateDetailActivity implements F
         if (!mColorPickerDialog.isShowing()) {
             mColorPickerDialog.show();
         }
+    }
+
+    public void  onGooglePhotosClick(){
+
     }
 
     @Override
