@@ -217,4 +217,23 @@
         <item>9</item>
         <item>10</item>
     </string-array>
+    <string-array name="gphotoscategories" >
+
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item><item></item>
+        <item></item>
+        <item></item>
+
+
+
+
+    </string-array>
 </resources>

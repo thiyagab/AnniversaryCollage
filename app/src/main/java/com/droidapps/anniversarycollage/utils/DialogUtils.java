@@ -392,7 +392,7 @@ public class DialogUtils {
             @Override
             public void onClick(View v) {
                 if (listener != null) {
-                    listener.onTextButtonClick();
+                    listener.onGooglePhotosClick();
                 }
             }
         });

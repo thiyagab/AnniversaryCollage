@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/linearLayout"
@@ -7,89 +7,71 @@
     android:layout_height="match_parent">
 
 
-    <AutoCompleteTextView
-        android:id="@+id/daytext"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:ems="10"
-        android:hint="day"
-        android:inputType="numberSigned"
-        app:layout_constraintBottom_toTopOf="@+id/tableRow"
-        app:layout_constraintEnd_toStartOf="@+id/monthtext"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <LinearLayout
+        android:id="@+id/datefieldsgroup"
+        android:layout_width="match_parent"
+        android:layout_height="100dp" android:orientation="horizontal"
+        android:weightSum="3"
+        android:layout_marginTop="100dp"
+        >
+        <AutoCompleteTextView
+            android:id="@+id/daytext"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:ems="10"
+            android:hint="day"
+            android:layout_weight="1"
+            android:layout_marginLeft="20dp"
+            android:inputType="numberSigned"
+            />
 
-    <AutoCompleteTextView
-        android:id="@+id/monthtext"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:ems="10"
-        android:hint="month"
-        android:inputType="numberSigned"
-        app:layout_constraintBottom_toBottomOf="@+id/daytext"
-        app:layout_constraintEnd_toStartOf="@+id/yeartext"
-        app:layout_constraintStart_toEndOf="@+id/daytext"
-        app:layout_constraintTop_toTopOf="parent" />
+        <AutoCompleteTextView
+            android:id="@+id/monthtext"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:ems="10"
+            android:hint="month"
+            android:layout_marginLeft="20dp"
+            android:layout_weight="1"
+            android:inputType="numberSigned"
+             />
 
-    <AutoCompleteTextView
-        android:id="@+id/yeartext"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_marginEnd="411dp"
-        android:layout_marginRight="411dp"
-        android:ems="10"
-        android:inputType="numberSigned"
-        app:layout_constraintBottom_toBottomOf="@+id/daytext"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/monthtext"
-        app:layout_constraintTop_toTopOf="parent" />
+        <AutoCompleteTextView
+            android:id="@+id/yeartext"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="20dp"
+            android:ems="10"
+            android:hint="year"
+            android:layout_weight="1"
+            android:inputType="numberSigned"
+            />
+    </LinearLayout>
 
 
-    <TableRow
-        android:id="@+id/tableRow"
-        android:layout_width="0dp"
-
+    <GridView
+        android:id="@+id/checkboxgroup"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@+id/tableRow2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/daytext" />
+        android:layout_below="@+id/datefieldsgroup"
+        android:layout_above="@id/applyButton"
+        android:numColumns="2"
 
-    <TableRow
-        android:id="@+id/tableRow2"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@+id/tableRow3"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tableRow" />
+        />
 
-    <TableRow
-        android:id="@+id/tableRow3"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@+id/tableRow4"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tableRow2" />
-
-    <TableRow
-        android:id="@+id/tableRow4"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@+id/button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tableRow3" />
 
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/applyButton"
         android:layout_width="88dp"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="Apply"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/daytext"
-        app:layout_constraintTop_toBottomOf="@+id/tableRow4" />
-</android.support.constraint.ConstraintLayout>
+
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="30dp"
+        android:layout_centerHorizontal="true"
+         />
+
+
+</RelativeLayout>

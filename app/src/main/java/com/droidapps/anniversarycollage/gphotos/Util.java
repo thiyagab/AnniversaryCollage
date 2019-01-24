@@ -16,6 +16,7 @@ import com.android.volley.toolbox.Volley;
 import com.droidapps.anniversarycollage.R;
 import com.droidapps.anniversarycollage.gphotos.model.DateFilter;
 import com.droidapps.anniversarycollage.gphotos.model.Filters;
+import com.droidapps.anniversarycollage.gphotos.model.MediaTypeFilter;
 import com.droidapps.anniversarycollage.gphotos.model.SearchRequest;
 import com.droidapps.anniversarycollage.gphotos.model.SearchResponse;
 import com.droidapps.anniversarycollage.ui.MainActivity;
@@ -53,6 +54,9 @@ public class Util {
     static final String URL_SEARCH="https://photoslibrary.googleapis.com/v1/mediaItems:search";
     static final String CLIENT_ID="413558917554-2a13qf70rqkcm2e131f6ca4jivan0ded.apps.googleusercontent.com";
 
+
+    public static final String[] CATEGORIES={"LANDSCAPES", "RECEIPTS", "CITYSCAPES", "LANDMARKS", "SELFIES", "PEOPLE", "PETS", "WEDDINGS", "BIRTHDAYS", "DOCUMENTS", "TRAVEL", "ANIMALS", "FOOD", "SPORT", "NIGHT", "PERFORMANCES", "WHITEBOARDS", "SCREENSHOTS", "UTILITY"};
+
     public static void initializeGooglePhotos(Activity activity){
 
 
@@ -83,7 +87,7 @@ public class Util {
         }
     }
 
-    public static void handleActivityResult(int requestCode, Activity activity, Intent data) {
+    public static void handleActivityResult(int requestCode, SignInCallback activity, Intent data) {
         if (requestCode == RC_SIGN_IN) {
             // The Task returned from this call is always completed, no need to attach
             // a listener.
@@ -93,7 +97,7 @@ public class Util {
     }
 
 
-    private static void handleSignInResult(Task<GoogleSignInAccount> completedTask, final Activity activity) {
+    private static void handleSignInResult(Task<GoogleSignInAccount> completedTask, final SignInCallback activity) {
         try {
             final GoogleSignInAccount account = completedTask.getResult(ApiException.class);
             System.out.println("Server auth code: "+account.getServerAuthCode());
@@ -101,11 +105,16 @@ public class Util {
             AsyncTask task = new AsyncTask() {
                 @Override
                 protected Object doInBackground(Object[] objects) {
-                    String accessToken=requestAccessToken(account,activity);
+                    String accessToken=requestAccessToken(account,(Activity)activity);
                     System.out.println("AccessToken: "+accessToken);
                     Date expiryTime=new Date(System.currentTimeMillis()+3600*1000);
-                    fetchAlbums(accessToken,28,10,2018,URL_SEARCH,activity);
+//                    fetchAlbums(accessToken,28,10,2018,URL_SEARCH,activity);
                     return null;
+                }
+
+                @Override
+                protected void onPostExecute(Object o) {
+                    activity.onSignInComplete();
                 }
             }.execute();
 
@@ -127,11 +136,12 @@ public class Util {
 
     }
 
-    public static long isTokenExpired(Activity activity){
+    public static boolean isTokenExpired(Activity activity){
        if(mTokenExpired==0) {
           mTokenExpired= activity.getSharedPreferences(APP_NAME, Context.MODE_PRIVATE).getLong("expiry", 0);
+
        }
-       return mTokenExpired;
+       return SystemClock.elapsedRealtime() >= mTokenExpired;
     }
 
     public static void setAccessToken(Activity activity,String accessToken, long expiry){
@@ -144,8 +154,17 @@ public class Util {
 
     }
 
+    public static boolean isLoggedIn(Activity activity){
+        return getAccessToken(activity)!=null && !isTokenExpired(activity);
+    }
+
+    public static void searchPhotos(int day,int month,int year,SearchCallback activity){
+        fetchAlbums(getAccessToken((Activity)activity),day,month,year,URL_SEARCH,activity);
+    }
+
     static final int PAGE_SIZE=100;
-    public static void fetchAlbums(final String accessToken, int day, int month, int year,String url, Activity activity){
+    public static void fetchAlbums(final String accessToken, int day, int month, int year,String url,final SearchCallback activity){
+
         JSONObject requestObject = constructDateFilterRequest(day,month,year);
         JsonObjectRequest req = new JsonObjectRequest(Request.Method.POST,url,
                 requestObject, new Response.Listener<JSONObject>() {
@@ -157,11 +176,13 @@ public class Util {
                SearchResponse searchResponse= new Gson().fromJson(response.toString(), SearchResponse.class);
                if (searchResponse.mediaItems!=null && searchResponse.mediaItems.size()>0)
                     System.out.println("Search Response: "+searchResponse.mediaItems.get(0));
+               activity.onSearchResults(searchResponse);
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 System.out.println("Error: "+error);
+                activity.onError(error.getMessage());
             }
         }) {
 
@@ -176,7 +197,7 @@ public class Util {
                 return headers;
             }
         };
-        Volley.newRequestQueue(activity).add(req);
+        Volley.newRequestQueue((Activity)activity).add(req);
     }
 
     private static JSONObject constructDateFilterRequest(long day, long month, long year){
@@ -192,6 +213,10 @@ public class Util {
         date.year=year;
         dateFilter.dates.add(date);
         searchRequest.pageSize=(long)PAGE_SIZE;
+        filters.mediaTypeFilter = new MediaTypeFilter();
+        filters.mediaTypeFilter.mediaTypes= new ArrayList<>(1);
+        filters.mediaTypeFilter.mediaTypes.add("PHOTO");
+        searchRequest.filters = filters;
         JSONObject requestObject =null;
         try {
            requestObject=new JSONObject(new Gson().toJson(searchRequest));
@@ -323,5 +348,15 @@ public class Util {
             }
         }
         return null;
+    }
+
+    public interface SearchCallback{
+        void onSearchResults(SearchResponse response);
+        void onError(String errror);
+    }
+
+    public interface SignInCallback{
+        void onSignInComplete();
+        void onError(String errror);
     }
 }

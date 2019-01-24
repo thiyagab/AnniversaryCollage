@@ -280,7 +280,6 @@ public class MainActivity extends AdsFragmentActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Util.handleActivityResult(requestCode,this,data);
         // Result returned from launching the Intent from GoogleSignInClient.getSignInIntent(...);
 
     }

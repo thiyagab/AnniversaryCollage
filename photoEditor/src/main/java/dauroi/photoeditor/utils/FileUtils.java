@@ -41,7 +41,7 @@ import android.webkit.MimeTypeMap;
 
 public class FileUtils {
     public static final String TEMP_FOLDER = Environment.getExternalStorageDirectory().getAbsolutePath()
-            .concat("/Android/data/dauroi.photoeditor/Temp");
+            .concat("/Android/data/10yearschallenge/Temp");
     /**
      * TAG for log messages.
      */

@@ -20,10 +20,16 @@ import com.droidapps.anniversarycollage.R;
 import com.droidapps.anniversarycollage.config.Constant;
 import com.droidapps.anniversarycollage.frame.FrameImageView;
 import com.droidapps.anniversarycollage.frame.FramePhotoLayout;
+import com.droidapps.anniversarycollage.gphotos.Util;
+import com.droidapps.anniversarycollage.gphotos.model.MediaItem;
+import com.droidapps.anniversarycollage.gphotos.model.SearchResponse;
+import com.droidapps.anniversarycollage.model.GalleryAlbum;
 import com.droidapps.anniversarycollage.model.TemplateItem;
+import com.droidapps.anniversarycollage.ui.fragment.GalleryAlbumImageFragment;
 import com.droidapps.anniversarycollage.utils.ImageUtils;
 
 import java.io.File;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import dauroi.photoeditor.PhotoEditorApp;
@@ -34,7 +40,8 @@ import dauroi.photoeditor.utils.ImageDecoder;
 /**
  * Created by admin on 4/28/2016.
  */
-public class FrameDetailActivity extends BaseTemplateDetailActivity implements FramePhotoLayout.OnQuickActionClickListener, ColorPickerDialog.OnColorChangedListener {
+public class FrameDetailActivity extends BaseTemplateDetailActivity implements FramePhotoLayout.OnQuickActionClickListener,
+        ColorPickerDialog.OnColorChangedListener ,Util.SignInCallback{
     private static final int REQUEST_SELECT_PHOTO = 99;
     private static final float MAX_SPACE = ImageUtils.pxFromDp(PhotoEditorApp.getAppContext(), 30);
     private static final float MAX_CORNER = ImageUtils.pxFromDp(PhotoEditorApp.getAppContext(), 60);
@@ -165,7 +172,11 @@ public class FrameDetailActivity extends BaseTemplateDetailActivity implements F
     }
 
     public void  onGooglePhotosClick(){
-
+        if(Util.isLoggedIn(FrameDetailActivity.this)){
+            onSignInComplete();
+        }else{
+            Util.initializeGooglePhotos(this);
+        }
     }
 
     @Override
@@ -321,7 +332,18 @@ public class FrameDetailActivity extends BaseTemplateDetailActivity implements F
             if (mSelectedFrameImageView != null && mSelectedImages != null && !mSelectedImages.isEmpty()) {
                 mSelectedFrameImageView.setImagePath(mSelectedImages.get(0));
             }
-        } else {
+        }else if(requestCode == Util.RC_SIGN_IN){
+            Util.handleActivityResult(requestCode,FrameDetailActivity.this,data);
+        }else if(requestCode==GPHOTOS_REQUEST_CODE){
+            String photoPath=data.getStringExtra("TEMP_PHOTO_PATH");
+            photoPath = "file://"+photoPath;
+            if(photoPath!=null){
+                resultFromPhotoEditor(Uri.parse(photoPath));
+            }
+
+        }
+
+        else {
             super.onActivityResult(requestCode, resultCode, data);
         }
     }
@@ -333,5 +355,19 @@ public class FrameDetailActivity extends BaseTemplateDetailActivity implements F
             mFramePhotoLayout.recycleImages();
         }
         super.finish();
+    }
+
+
+   static final  int GPHOTOS_REQUEST_CODE=1111;
+
+    @Override
+    public void onSignInComplete() {
+        Intent intent = new Intent(this,GPhotosActivity.class);
+        startActivityForResult(intent,GPHOTOS_REQUEST_CODE);
+    }
+
+    @Override
+    public void onError(String errror) {
+
     }
 }

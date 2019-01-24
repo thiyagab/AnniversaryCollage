@@ -12,6 +12,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -490,8 +491,14 @@ public abstract class BaseTemplateDetailActivity extends BasePhotoActivity imple
 
                 if (file != null) {
                     Intent share = new Intent(Intent.ACTION_SEND);
-                    share.setType("image/png");
-                    share.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(file));
+//                    share.setType("image/png");
+//                    share.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(file));
+                    Uri apkURI = FileProvider.getUriForFile(
+                            BaseTemplateDetailActivity.this,
+                            getApplicationContext()
+                                    .getPackageName() + ".provider", file);
+                    share.setDataAndType(apkURI, "image/png");
+                    share.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
                     startActivity(Intent.createChooser(share, getString(R.string.photo_editor_share_image)));
                 } else if (errMsg != null) {
                     Toast.makeText(BaseTemplateDetailActivity.this, errMsg, Toast.LENGTH_LONG).show();
