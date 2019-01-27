@@ -14,6 +14,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.Toast;
 
 import com.droidapps.anniversarycollage.R;
+import com.droidapps.anniversarycollage.multitouch.controller.TextDrawable;
 import com.droidapps.anniversarycollage.ui.fragment.DownloadedPackageFragment;
 import com.droidapps.anniversarycollage.utils.DialogUtils;
 
@@ -186,13 +187,13 @@ public abstract class BasePhotoActivity extends AdsFragmentActivity implements
                     String text = data.getStringExtra(AddTextItemActivity.EXTRA_TEXT_CONTENT);
                     String fontPath = data.getStringExtra(AddTextItemActivity.EXTRA_TEXT_FONT);
                     int color = data.getIntExtra(AddTextItemActivity.EXTRA_TEXT_COLOR, Color.BLACK);
-                    resultEditTextItem(text, color, fontPath);
+                    resultEditTextItem(text, color, fontPath,data.getIntExtra(AddTextItemActivity.EXTRA_TEXT_SIZE, TextDrawable.DEFAULT_TEXT_SIZE));
                     break;
                 case REQUEST_ADD_TEXT_ITEM:
                     text = data.getStringExtra(AddTextItemActivity.EXTRA_TEXT_CONTENT);
                     fontPath = data.getStringExtra(AddTextItemActivity.EXTRA_TEXT_FONT);
                     color = data.getIntExtra(AddTextItemActivity.EXTRA_TEXT_COLOR, Color.BLACK);
-                    resultAddTextItem(text, color, fontPath);
+                    resultAddTextItem(text, color, fontPath,data.getIntExtra(AddTextItemActivity.EXTRA_TEXT_SIZE, TextDrawable.DEFAULT_TEXT_SIZE));
                     break;
             }
 
@@ -257,11 +258,12 @@ public abstract class BasePhotoActivity extends AdsFragmentActivity implements
         startActivityForResult(intent, REQUEST_ADD_TEXT_ITEM);
     }
 
-    public void editTextItem(String text, String font, int textColor) {
+    public void editTextItem(String text, String font, int textColor,int size) {
         Intent intent = new Intent(this, AddTextItemActivity.class);
         intent.putExtra(AddTextItemActivity.EXTRA_TEXT_CONTENT, text);
         intent.putExtra(AddTextItemActivity.EXTRA_TEXT_FONT, font);
         intent.putExtra(AddTextItemActivity.EXTRA_TEXT_COLOR, textColor);
+        intent.putExtra(AddTextItemActivity.EXTRA_TEXT_SIZE, size);
         startActivityForResult(intent, REQUEST_EDIT_TEXT_ITEM);
     }
 
@@ -293,11 +295,11 @@ public abstract class BasePhotoActivity extends AdsFragmentActivity implements
 
     }
 
-    protected void resultAddTextItem(String text, int color, String fontPath) {
+    protected void resultAddTextItem(String text, int color, String fontPath,int size) {
 
     }
 
-    protected void resultEditTextItem(String text, int color, String fontPath) {
+    protected void resultEditTextItem(String text, int color, String fontPath,int size) {
 
     }
 

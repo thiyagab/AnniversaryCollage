@@ -89,12 +89,14 @@
             android:padding="10dp"
             android:text="@string/sticker"
             android:textColor="#007AFF"
+            android:visibility="gone"
             android:textSize="16sp"/>
 
         <View
             android:id="@+id/dividerStickerView"
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
+            android:visibility="gone"
             android:background="#DADADE"/>
 
         <TextView

@@ -19,11 +19,19 @@ public class TextEntity extends ImageEntity {
     private String mTypefacePath = "";
     private float mCurrentScale = 0;
 
+    private float scaledDensity=1;
+
     public TextEntity(String text, Resources res) {
+//        super(-1, res);
+        this(text,res,
+                TextDrawable.DEFAULT_TEXT_SIZE);
+    }
+
+    public TextEntity(String text, Resources res,int textSize) {
         super(-1, res);
         mText = text;
-        mTextSize = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP,
-                TextDrawable.DEFAULT_TEXT_SIZE, res.getDisplayMetrics());
+        scaledDensity=res.getDisplayMetrics().scaledDensity;
+        mTextSize = scaledDensity*textSize;
     }
 
     @Override
@@ -53,9 +61,14 @@ public class TextEntity extends ImageEntity {
     }
 
     public void setTextSize(float textSize) {
-        mTextSize = textSize;
-        if (getDrawable() != null)
+        mTextSize=textSize*scaledDensity;
+        if (getDrawable() != null) {
             ((TextDrawable) getDrawable()).setTextSize(mTextSize);
+        }
+    }
+
+    public float getUnScaledTextSize(){
+        return mTextSize/scaledDensity;
     }
 
     public void setTypefacePath(String typefacePath) {

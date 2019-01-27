@@ -11,8 +11,8 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/photo_editor_top_bar_height"
-            android:background="@drawable/photo_editor_bg_topbar">
+            android:layout_height="?android:attr/actionBarSize"
+            android:background="#607D8B">
 
             <TextView
                 android:id="@+id/doneButton"
@@ -22,7 +22,7 @@
                 android:padding="10dp"
                 android:text="@string/photo_editor_done"
                 android:textColor="@android:color/white"
-                android:textSize="18sp"/>
+                android:textSize="16sp"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -43,7 +43,7 @@
                 android:padding="10dp"
                 android:text="@string/photo_editor_apply"
                 android:textColor="@android:color/white"
-                android:textSize="18sp"/>
+                android:textSize="16sp"/>
 
             <ProgressBar
                 android:id="@+id/progressBar"
@@ -61,6 +61,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/photo_editor_option_height"
         android:layout_below="@+id/topLayout"
+        android:layout_centerHorizontal="true"
         android:background="@drawable/photo_editor_bg_top_option"
         android:cacheColorHint="@android:color/transparent"
         android:listSelector="@android:color/transparent"/>

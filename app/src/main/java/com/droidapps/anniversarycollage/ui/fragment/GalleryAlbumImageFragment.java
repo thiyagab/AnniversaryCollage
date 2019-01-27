@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.droidapps.anniversarycollage.R;
@@ -18,6 +19,8 @@ import java.util.ArrayList;
  * Created by vanhu_000 on 3/26/2016.
  */
 public class GalleryAlbumImageFragment extends BaseFragment {
+    private TextView emptyView;
+
     public interface OnSelectImageListener {
         void onSelectImage(String image);
     }
@@ -46,6 +49,8 @@ public class GalleryAlbumImageFragment extends BaseFragment {
         if (getArguments() != null) {
             updateImages(getArguments());
         }
+         emptyView = view.findViewById(R.id.emptyText);
+
         return view;
     }
 
@@ -65,6 +70,17 @@ public class GalleryAlbumImageFragment extends BaseFragment {
                     }
                 }
             });
+        }
+        updateViews();
+    }
+
+    private void updateViews() {
+        if(mImages==null || mImages.isEmpty()){
+            mGridView.setVisibility(View.GONE);
+            emptyView.setVisibility(View.VISIBLE);
+        }else{
+            mGridView.setVisibility(View.VISIBLE);
+            emptyView.setVisibility(View.GONE);
         }
     }
 }

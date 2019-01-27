@@ -89,10 +89,10 @@ public class FrameDetailActivity extends BaseTemplateDetailActivity implements F
         //add ads view
 //        addAdsView(R.id.adsLayout);
         //inflate widgets
-        mAddImageDialog.findViewById(R.id.dividerTextView).setVisibility(View.VISIBLE);
-        mAddImageDialog.findViewById(R.id.alterBackgroundView).setVisibility(View.VISIBLE);
-        mAddImageDialog.findViewById(R.id.dividerBackgroundPhotoView).setVisibility(View.VISIBLE);
-        mAddImageDialog.findViewById(R.id.alterBackgroundColorView).setVisibility(View.VISIBLE);
+//        mAddImageDialog.findViewById(R.id.dividerTextView).setVisibility(View.VISIBLE);
+//        mAddImageDialog.findViewById(R.id.alterBackgroundView).setVisibility(View.VISIBLE);
+//        mAddImageDialog.findViewById(R.id.dividerBackgroundPhotoView).setVisibility(View.VISIBLE);
+//        mAddImageDialog.findViewById(R.id.alterBackgroundColorView).setVisibility(View.VISIBLE);
         mSpaceLayout = (ViewGroup) findViewById(R.id.spaceLayout);
         mSpaceBar = (SeekBar) findViewById(R.id.spaceBar);
         mSpaceBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -159,7 +159,6 @@ public class FrameDetailActivity extends BaseTemplateDetailActivity implements F
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         boolean result = super.onCreateOptionsMenu(menu);
-        menu.findItem(R.id.action_ratio).setVisible(true);
         return result;
     }
 

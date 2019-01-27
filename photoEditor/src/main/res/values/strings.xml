@@ -60,7 +60,7 @@
     <string name="photo_editor_confirm_uninstall">Are you sure you want to uninstall this package?</string>
     <string name="photo_editor_confirm_delete_image">Are you sure you want to delete this image?</string>
     <string name="photo_editor_share">Share</string>
-    <string name="photo_editor_edit">Edit</string>
+    <string name="photo_editor_edit">Edit Pic</string>
     <string name="photo_editor_delete">Delete</string>
     <string name="photo_editor_rate_app">Give us 5 stars.</string>
     <string name="photo_editor_facebook_share_title">Kool Cropper</string>

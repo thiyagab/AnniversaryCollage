@@ -472,32 +472,32 @@ public class ImageProcessingActivity extends BaseAdActivity {
                     mActions[position] = new RotationAction(this);
                 }
                 break;
-            case 3:
-                if (mActions[position] == null) {
-                    mActions[position] = new TextAction(this);
-                }
-                break;
-            case 4:
-                if (mActions[position] == null) {
-                    mActions[position] = new FrameAction(this);
-                }
-                break;
+//            case 3:
+//                if (mActions[position] == null) {
+//                    mActions[position] = new TextAction(this);
+//                }
+//                break;
+//            case 4:
+//                if (mActions[position] == null) {
+//                    mActions[position] = new FrameAction(this);
+//                }
+//                break;
             // case 5:
             // if (mActions[position] == null) {
             // mActions[position] = new ShadeAction(this);
             // }
             // break;
-            case 5:
+            case 3:
                 if (mActions[position] == null) {
                     mActions[position] = new DrawAction(this);
                 }
                 break;
-            case 6:
+            case 4:
                 if (mActions[position] == null) {
                     mActions[position] = new FocusAction(this);
                 }
                 break;
-            case 7:
+            case 5:
                 if (mActions[position] == null) {
                     mActions[position] = new TouchBlurAction(this);
                 }
@@ -670,17 +670,17 @@ public class ImageProcessingActivity extends BaseAdActivity {
         item.setSelectedThumbnail("drawable://" + R.drawable.photo_editor_ic_rotate_pressed);
         mTopbarMenuItems.add(item);
 
-        item = new ItemInfo();
-        item.setTitle(getString(R.string.photo_editor_text));
-        item.setThumbnail("drawable://" + R.drawable.photo_editor_ic_text_normal);
-        item.setSelectedThumbnail("drawable://" + R.drawable.photo_editor_ic_text_pressed);
-        mTopbarMenuItems.add(item);
+//        item = new ItemInfo();
+//        item.setTitle(getString(R.string.photo_editor_text));
+//        item.setThumbnail("drawable://" + R.drawable.photo_editor_ic_text_normal);
+//        item.setSelectedThumbnail("drawable://" + R.drawable.photo_editor_ic_text_pressed);
+//        mTopbarMenuItems.add(item);
 
-        item = new ItemInfo();
-        item.setTitle(getString(R.string.photo_editor_frame));
-        item.setThumbnail("drawable://" + R.drawable.photo_editor_ic_frame_normal);
-        item.setSelectedThumbnail("drawable://" + R.drawable.photo_editor_ic_frame_pressed);
-        mTopbarMenuItems.add(item);
+//        item = new ItemInfo();
+//        item.setTitle(getString(R.string.photo_editor_frame));
+//        item.setThumbnail("drawable://" + R.drawable.photo_editor_ic_frame_normal);
+//        item.setSelectedThumbnail("drawable://" + R.drawable.photo_editor_ic_frame_pressed);
+//        mTopbarMenuItems.add(item);
 
         // item = new ItemInfo();
         // item.setTitle(getString(R.string.photo_editor_shade));

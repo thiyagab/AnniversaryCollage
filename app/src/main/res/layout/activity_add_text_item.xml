@@ -53,6 +53,22 @@
             android:id="@+id/spinner"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="15dp"
+            android:text="Text Size"
+            android:textColor="#3d3d3d"/>
+
+        <Spinner
+            android:id="@+id/textSizeSpinner"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:spinnerMode="dialog"
+            android:visibility="visible" />
+
     </LinearLayout>
 
     <FrameLayout

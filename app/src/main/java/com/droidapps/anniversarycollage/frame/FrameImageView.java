@@ -98,6 +98,14 @@ public class FrameImageView extends ImageView {
                 }
                 return true;
             }
+
+            @Override
+            public boolean onSingleTapConfirmed(MotionEvent e) {
+                if (mOnImageClickListener != null) {
+                    mOnImageClickListener.onDoubleClickImage(FrameImageView.this);
+                }
+                return true;
+            }
         });
     }
 

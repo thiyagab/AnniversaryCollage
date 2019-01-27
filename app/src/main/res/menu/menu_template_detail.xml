@@ -13,12 +13,7 @@
         android:icon="@drawable/ic_add_white"
         android:title=""
         app:showAsAction="always"/>
-    <item
-        android:id="@+id/action_ratio"
-        android:icon="@drawable/ic_aspect_ratio"
-        android:title="@string/layout_ration"
-        android:visible="false"
-        app:showAsAction="ifRoom"/>
+
     <item
         android:id="@+id/action_help"
         android:icon="@drawable/ic_action_help"

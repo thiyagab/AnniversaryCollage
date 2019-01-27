@@ -155,6 +155,7 @@ public abstract class BaseTemplateDetailActivity extends BasePhotoActivity imple
         mAddImageDialog.findViewById(R.id.dividerGalleryView).setVisibility(View.GONE);
         mAddImageDialog.findViewById(R.id.gphotosview).setVisibility(View.GONE);
         mAddImageDialog.findViewById(R.id.dividerGPhotos).setVisibility(View.GONE);
+
         mAddImageView = mAddImageDialog.findViewById(R.id.dialogAddImage);
         //loading data
         if (savedInstanceState != null) {
@@ -309,7 +310,8 @@ public abstract class BaseTemplateDetailActivity extends BasePhotoActivity imple
                 } else if (actionId == ID_EDIT) {
                     if (mSelectedEntity instanceof TextEntity) {
                         TextDrawable textDrawable = (TextDrawable) ((TextEntity) mSelectedEntity).getDrawable();
-                        editTextItem(textDrawable.getText(), textDrawable.getTypefacePath(), textDrawable.getTextColor());
+                        editTextItem(textDrawable.getText(), textDrawable.getTypefacePath(),
+                                textDrawable.getTextColor(),(int)((TextEntity)mSelectedEntity).getUnScaledTextSize());
                     }
                 } else if (actionId == ID_CANCEL) {
 
@@ -407,29 +409,31 @@ public abstract class BaseTemplateDetailActivity extends BasePhotoActivity imple
             }
             mAddImageDialog.show();
             return true;
-        } else if (item.getItemId() == R.id.action_ratio) {
-            if (mRatioDialog == null) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                String[] layoutRatioName = new String[]{getString(R.string.photo_editor_square), getString(R.string.fit),
-                        getString(R.string.golden_ratio),};
-
-                builder.setTitle(R.string.select_ratio);
-                builder.setSingleChoiceItems(layoutRatioName, mPref.getInt(RATIO_KEY, 0),
-                        new DialogInterface.OnClickListener() {
-
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                mPref.edit().putInt(RATIO_KEY, which).commit();
-                                mLayoutRatio = which;
-                                dialog.dismiss();
-                                buildLayout(mSelectedTemplateItem);
-                            }
-                        });
-                mRatioDialog = builder.create();
-            }
-            mRatioDialog.show();
-            return true;
-        } else if (item.getItemId() == R.id.action_help) {
+        }
+//        else if (item.getItemId() == R.id.action_ratio) {
+//            if (mRatioDialog == null) {
+//                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+//                String[] layoutRatioName = new String[]{getString(R.string.photo_editor_square), getString(R.string.fit),
+//                        getString(R.string.golden_ratio),};
+//
+//                builder.setTitle(R.string.select_ratio);
+//                builder.setSingleChoiceItems(layoutRatioName, mPref.getInt(RATIO_KEY, 0),
+//                        new DialogInterface.OnClickListener() {
+//
+//                            @Override
+//                            public void onClick(DialogInterface dialog, int which) {
+//                                mPref.edit().putInt(RATIO_KEY, which).commit();
+//                                mLayoutRatio = which;
+//                                dialog.dismiss();
+//                                buildLayout(mSelectedTemplateItem);
+//                            }
+//                        });
+//                mRatioDialog = builder.create();
+//            }
+//            mRatioDialog.show();
+//            return true;
+//        }
+        else if (item.getItemId() == R.id.action_help) {
             clickInfoView();
             return true;
         } else {
@@ -611,8 +615,8 @@ public abstract class BaseTemplateDetailActivity extends BasePhotoActivity imple
     }
 
     @Override
-    protected void resultAddTextItem(String text, int color, String fontPath) {
-        final TextEntity entity = new TextEntity(text, getResources());
+    protected void resultAddTextItem(String text, int color, String fontPath, int size) {
+        final TextEntity entity = new TextEntity(text, getResources(),size);
         entity.setTextColor(color);
         entity.setTypefacePath(fontPath);
         entity.load(this,
@@ -627,11 +631,12 @@ public abstract class BaseTemplateDetailActivity extends BasePhotoActivity imple
     }
 
     @Override
-    protected void resultEditTextItem(String text, int color, String fontPath) {
+    protected void resultEditTextItem(String text, int color, String fontPath,int size) {
         if (mSelectedEntity instanceof TextEntity) {
             TextEntity textEntity = (TextEntity) mSelectedEntity;
             textEntity.setTextColor(color);
             textEntity.setTypefacePath(fontPath);
+            textEntity.setTextSize(size);
             textEntity.setText(text);
         }
     }
