@@ -98,7 +98,7 @@ public class CustomMenuAdapter extends ArrayAdapter<ItemInfo> {
 			holder.packageSeparatorView.setVisibility(View.GONE);
 
 			if (item.getShowingType() == ItemInfo.ADD_ITEM_TYPE) {
-				holder.storeItemLayout.setVisibility(View.VISIBLE);
+//				holder.storeItemLayout.setVisibility(View.VISIBLE);
 			} else if (item.getShowingType() == ItemInfo.PACKAGE_ITEM_TYPE) {
 				PhotoUtils.loadImageWithGlide(getContext(), holder.packageThumbnailView, item.getThumbnail());
 				holder.packageLayout.setVisibility(View.VISIBLE);

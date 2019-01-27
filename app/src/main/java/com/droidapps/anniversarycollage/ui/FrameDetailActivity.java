@@ -1,6 +1,9 @@
 package com.droidapps.anniversarycollage.ui;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -15,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
+import android.widget.Toast;
 
 import com.droidapps.anniversarycollage.R;
 import com.droidapps.anniversarycollage.config.Constant;
@@ -137,6 +141,7 @@ public class FrameDetailActivity extends BaseTemplateDetailActivity implements F
             mPreferences.edit().putBoolean(Constant.SHOW_GUIDE_CREATE_FRAME_KEY, false)
                     .commit();
         }
+        requestPermissions();
     }
 
     @Override
@@ -275,6 +280,45 @@ public class FrameDetailActivity extends BaseTemplateDetailActivity implements F
             requestEditingImage(uri);
         }
     }
+    private static final int REQUEST = 112;
+    public void requestPermissions(){
+        if (Build.VERSION.SDK_INT >= 23) {
+            String[] PERMISSIONS = {android.Manifest.permission.WRITE_EXTERNAL_STORAGE};
+            if (!hasPermissions(this, PERMISSIONS)) {
+                requestPermissions(PERMISSIONS, REQUEST );
+            } else {
+                //do here
+            }
+        } else {
+            //do here
+        }
+
+    }
+
+    private  boolean hasPermissions(Context context, String... permissions) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && context != null && permissions != null) {
+            for (String permission : permissions) {
+                if (checkSelfPermission(permission) != PackageManager.PERMISSION_GRANTED) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions,  int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode) {
+            case REQUEST: {
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    //do here
+                } else {
+                    Toast.makeText(this, "The app cannot create collage without storage permissions", Toast.LENGTH_LONG).show();
+                }
+            }
+        }
+    }
 
     @Override
     public void onChangeActionClick(FrameImageView v) {
@@ -334,7 +378,7 @@ public class FrameDetailActivity extends BaseTemplateDetailActivity implements F
             }
         }else if(requestCode == Util.RC_SIGN_IN){
             Util.handleActivityResult(requestCode,FrameDetailActivity.this,data);
-        }else if(requestCode==GPHOTOS_REQUEST_CODE){
+        }else if(data!=null && requestCode==GPHOTOS_REQUEST_CODE){
             String photoPath=data.getStringExtra("TEMP_PHOTO_PATH");
             photoPath = "file://"+photoPath;
             if(photoPath!=null){

@@ -37,7 +37,7 @@ import dauroi.photoeditor.utils.Utils;
 @SuppressLint("UseSparseArrays")
 public abstract class PackageAction extends BaseAction
         implements OnBottomMenuItemClickListener, OnInstallStoreItemListener {
-    protected static final int DEFAULT_CROP_SELECTED_ITEM_INDEX = 3;
+    protected static final int DEFAULT_CROP_SELECTED_ITEM_INDEX = 1;
 
     protected HListView mListView;
     protected CustomMenuAdapter mMenuAdapter;

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Face Collage Maker</string>
+    <string name="app_name">10 Years Challenge</string>
     <string name="app_name_pro">Face Collage Maker Pro</string>
     <string name="select_color">Select Color</string>
     <string name="horizontal">Horizontal</string>
@@ -104,5 +104,6 @@
     <string name="default_web_client_id">413558917554-2a13qf70rqkcm2e131f6ca4jivan0ded.apps.googleusercontent.com</string>
     <string name="client_secret">goCr5smO4ll6Y-c8-b4ABppz</string>
     <string name="gphotos">Google Photos</string>
-    <string name="gphotos_filter">Filter Photos</string>
+    <string name="gphotos_filter">Google Photos</string>
+    <string name="search_gphotos">Search Google Photos</string>
 </resources>

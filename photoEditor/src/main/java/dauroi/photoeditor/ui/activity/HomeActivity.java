@@ -57,7 +57,7 @@ public class HomeActivity extends BaseAdActivity implements OnAddImageButtonClic
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.photo_editor_activity_home);
-        mNewItemView = findViewById(R.id.newItemView);
+//        mNewItemView = findViewById(R.id.newItemView);
         mGridView = (GridView) findViewById(R.id.gridView);
         mGridView.setOnItemClickListener(new OnItemClickListener() {
 
@@ -69,14 +69,14 @@ public class HomeActivity extends BaseAdActivity implements OnAddImageButtonClic
             }
         });
 
-        findViewById(R.id.storeLayout).setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(HomeActivity.this, StoreActivity.class);
-                startActivity(i);
-            }
-        });
+//        findViewById(R.id.storeLayout).setOnClickListener(new View.OnClickListener() {
+//
+//            @Override
+//            public void onClick(View v) {
+//                Intent i = new Intent(HomeActivity.this, StoreActivity.class);
+//                startActivity(i);
+//            }
+//        });
 
         findViewById(R.id.addImageButton).setOnClickListener(new View.OnClickListener() {
 
@@ -286,11 +286,11 @@ public class HomeActivity extends BaseAdActivity implements OnAddImageButtonClic
             @Override
             protected void onPostExecute(Void result) {
                 super.onPostExecute(result);
-                if (newItem) {
-                    mNewItemView.setVisibility(View.VISIBLE);
-                } else {
-                    mNewItemView.setVisibility(View.GONE);
-                }
+//                if (newItem) {
+//                    mNewItemView.setVisibility(View.VISIBLE);
+//                } else {
+//                    mNewItemView.setVisibility(View.GONE);
+//                }
             }
         };
 

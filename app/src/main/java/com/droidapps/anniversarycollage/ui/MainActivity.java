@@ -166,7 +166,7 @@ public class MainActivity extends AdsFragmentActivity {
                 mAdLayout.removeAllViews();
                 mTitle = getString(R.string.store);
                 getSupportActionBar().setTitle(mTitle);
-                onStoreItemMenuClickListener();
+//                onStoreItemMenuClickListener();
             }
         });
 

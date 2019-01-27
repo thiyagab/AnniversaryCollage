@@ -42,17 +42,18 @@ public class GalleryAlbumImageFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_select_gallery_photo, container, false);
         mGridView = (GridView) view.findViewById(R.id.gridView);
-        String albumName = getString(R.string.album_image);
+//        String albumName = getString(R.string.album_image);
         if (getArguments() != null) {
             updateImages(getArguments());
         }
-        setTitle(albumName);
         return view;
     }
 
     public void updateImages(Bundle data){
         mImages = data.getStringArrayList(ALBUM_IMAGE_EXTRA);
         String albumName = data.getString(ALBUM_NAME_EXTRA);
+        if(albumName!=null && !albumName.isEmpty())
+            setTitle(albumName);
         if (mImages != null) {
             GalleryAlbumImageAdapter adapter = new GalleryAlbumImageAdapter(getActivity(), mImages);
             mGridView.setAdapter(adapter);

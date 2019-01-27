@@ -73,30 +73,7 @@ public class FrameImageView extends ImageView {
         super(context);
         mPhotoItem = photoItem;
         if (photoItem.imagePath != null && photoItem.imagePath.length() > 0) {
-            mImage = ResultContainer.getInstance().getImage(photoItem.imagePath);
-            if (mImage == null || mImage.isRecycled()) {
-                try {
-                    mImage = ImageDecoder.decodeFileToBitmap(context,photoItem.imagePath);
-                } catch (OutOfMemoryError err) {
-                    FirebaseCrash.report(err);
-                    if (context instanceof Activity) {
-                        ((Activity) context).runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                try {
-                                    Toast.makeText(getContext().getApplicationContext(), context.getString(R.string.photo_editor_waring_out_of_memory), Toast.LENGTH_SHORT).show();
-                                } catch (Exception ex) {
-                                    ex.printStackTrace();
-                                }
-                            }
-                        });
-                    }
-                }
-                ResultContainer.getInstance().putImage(photoItem.imagePath, mImage);
-                ALog.d(TAG, "create FrameImageView, decode image");
-            } else {
-                ALog.d(TAG, "create FrameImageView, use decoded image");
-            }
+            mImage = getImageFromPath(context,photoItem.imagePath);
         }
 
         mPaint = new Paint();
@@ -122,6 +99,34 @@ public class FrameImageView extends ImageView {
                 return true;
             }
         });
+    }
+
+    public  Bitmap getImageFromPath(final Context context,String imagePath){
+        Bitmap image = ResultContainer.getInstance().getImage(imagePath);
+        if (image == null || image.isRecycled()) {
+            try {
+                image = ImageDecoder.decodeFileToBitmap(context,imagePath);
+            } catch (OutOfMemoryError err) {
+                FirebaseCrash.report(err);
+                if (context instanceof Activity) {
+                    ((Activity) context).runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                Toast.makeText(getContext().getApplicationContext(), context.getString(R.string.photo_editor_waring_out_of_memory), Toast.LENGTH_SHORT).show();
+                            } catch (Exception ex) {
+                                ex.printStackTrace();
+                            }
+                        }
+                    });
+                }
+            }
+            ResultContainer.getInstance().putImage(imagePath, image);
+            ALog.d(TAG, "create FrameImageView, decode image");
+        } else {
+            ALog.d(TAG, "create FrameImageView, use decoded image");
+        }
+        return image;
     }
 
     public void saveInstanceState(Bundle outState) {
@@ -568,7 +573,11 @@ public class FrameImageView extends ImageView {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        drawImage(canvas, mPath, mPaint, mPathRect, mImage, mImageMatrix,
+        Bitmap bitmapToDraw = mImage;
+//        if(bitmapToDraw==null){
+//            bitmapToDraw = getImageFromPath(getContext(),"file:///android_asset/frame/collage_1_0.png");
+//        }
+        drawImage(canvas, mPath, mPaint, mPathRect, bitmapToDraw, mImageMatrix,
                 getWidth(), getHeight(), mBackgroundColor, mBackgroundPath,
                 mClearPath, mPolygon);
     }

@@ -38,14 +38,14 @@ public class PhotoUtils {
     public static final String DRAWABLE_PREFIX = "drawable://";
     public static final String ASSET_PREFIX = "assets://";
 
-    public static void addImageToGallery(final String filePath, final Context context) {
+    public static Uri addImageToGallery(final String filePath, final Context context) {
         ContentValues values = new ContentValues();
 
         values.put(MediaStore.Images.Media.DATE_TAKEN, System.currentTimeMillis());
         values.put(MediaStore.Images.Media.MIME_TYPE, "image/png");
         values.put(MediaStore.MediaColumns.DATA, filePath);
 
-        context.getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
+        return context.getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
     }
 
     public static Bitmap fillBackgroundColorToImage(Bitmap bitmap, int color) {

@@ -8,6 +8,10 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.Spinner;
 
 import com.droidapps.anniversarycollage.R;
 import com.droidapps.anniversarycollage.gphotos.Util;
@@ -19,11 +23,14 @@ import com.droidapps.anniversarycollage.ui.fragment.GalleryAlbumImageFragment;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import dauroi.photoeditor.utils.FileUtils;
 import dauroi.photoeditor.utils.PhotoUtils;
 
 public class GPhotosActivity extends BaseFragmentActivity implements GalleryAlbumImageFragment.OnSelectImageListener, GPhotosFilterFragment.OnApplyFilterListener, Util.SearchCallback {
+
+    private Button applybutton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,14 +45,45 @@ public class GPhotosActivity extends BaseFragmentActivity implements GalleryAlbu
 
     public void initView(){
         FragmentManager fm = getFragmentManager();
-        Fragment fragment = fm.findFragmentByTag("myfragment");
+        Fragment fragment = fm.findFragmentByTag("imagefragment");
         if (fragment == null) {
             FragmentTransaction ft = fm.beginTransaction();
-            fragment =new GPhotosFilterFragment();
-            ft.replace(android.R.id.content,fragment,"myFragmentTag");
+            fragment =new GalleryAlbumImageFragment();
+            ft.replace(R.id.contentView,fragment,"imagefragment");
             ft.commit();
         }
 
+        initFilterView();
+
+    }
+
+    private void initFilterView() {
+        final Spinner dayView = ((Spinner)findViewById(R.id.daytext));
+        final Spinner monthView = ((Spinner)findViewById(R.id.monthtext));
+        final Spinner yearView = ((Spinner)findViewById(R.id.yeartext));
+
+
+        setTitle(R.string.gphotos_filter);
+        final int currentYear= Calendar.getInstance().get(Calendar.YEAR);
+        final String years[]= new String[30];
+        years[0]="All Years";
+        for (int i=0;i<30;i++){
+            years[i]=String.valueOf(currentYear-i);
+        }
+        ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, years );
+        yearView.setAdapter(spinnerArrayAdapter);
+        applybutton =(Button)findViewById(R.id.applyButton);
+        applybutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int day = dayView.getSelectedItemPosition();
+                int month = monthView.getSelectedItemPosition();
+                int year = yearView.getSelectedItemPosition()!=0? (currentYear-yearView.getSelectedItemPosition()-1):0;
+                filterApplied(day,month,year,Util.CATEGORIES);
+                applybutton.setText("Searching...");
+
+            }
+        });
     }
 
     @Override
@@ -57,7 +95,8 @@ public class GPhotosActivity extends BaseFragmentActivity implements GalleryAlbu
             protected String doInBackground(String... objects) {
                 String tempSavePath = FileUtils.TEMP_FOLDER.concat("/"+System.currentTimeMillis()+".jpg");
                 try {
-                    FileUtils.downloadFile(imageUrl, tempSavePath);
+                    String fullSizeUrl =imageUrl.substring(0,imageUrl.lastIndexOf("="));
+                    FileUtils.downloadFile(fullSizeUrl, tempSavePath);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -87,16 +126,20 @@ public class GPhotosActivity extends BaseFragmentActivity implements GalleryAlbu
 
     @Override
     public void onSearchResults(SearchResponse response) {
+        applybutton.setText(R.string.search_gphotos);
         ArrayList<String> images=extractImageUrls(response);
-        Bundle data = new Bundle();
+        final Bundle data = new Bundle();
         data.putStringArrayList(GalleryAlbumImageFragment.ALBUM_IMAGE_EXTRA, images);
         data.putString(GalleryAlbumImageFragment.ALBUM_NAME_EXTRA, "Google photos");
-        GalleryAlbumImageFragment imageFragment = new GalleryAlbumImageFragment();
-        imageFragment.setArguments(data);
-        getFragmentManager().beginTransaction().replace(android.R.id.content,imageFragment,"albumFragment").commit();
-        Intent intent = new Intent(this,GPhotosActivity.class);
-//        intent.putExtras(data);
-//        startActivity(intent);
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                FragmentManager fm = getFragmentManager();
+                GalleryAlbumImageFragment imageFragment = (GalleryAlbumImageFragment)fm.findFragmentByTag("imagefragment");
+                imageFragment.updateImages(data);
+            }
+        });
+
 
 
     }
@@ -106,7 +149,7 @@ public class GPhotosActivity extends BaseFragmentActivity implements GalleryAlbu
             ArrayList<String> imageUrls = new ArrayList<>(response.mediaItems.size());
             for (MediaItem mediaItem: response.mediaItems){
                 //TODO add =w256-h256 in url
-                imageUrls.add(mediaItem.baseUrl);
+                imageUrls.add(mediaItem.baseUrl+"=w256-h256");
             }
             return imageUrls;
         }
@@ -114,6 +157,6 @@ public class GPhotosActivity extends BaseFragmentActivity implements GalleryAlbu
     }
     @Override
     public void onError(String errror) {
-
+        applybutton.setText(R.string.search_gphotos);
     }
 }

@@ -17,6 +17,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.GridView;
 import android.widget.ListView;
+import android.widget.Spinner;
 
 import com.clockbyte.admobadapter.expressads.AdmobExpressAdapterWrapper;
 import com.droidapps.anniversarycollage.R;
@@ -28,6 +29,7 @@ import com.droidapps.anniversarycollage.ui.BaseFragmentActivity;
 import com.droidapps.anniversarycollage.utils.AdsHelper;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
@@ -66,33 +68,26 @@ public class GPhotosFilterFragment extends BaseFragment  {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_gphotos_filter, container, false);
-        GridView gridView=view.findViewById(R.id.checkboxgroup);
-
-        String[] categories = Util.CATEGORIES;
-//        gridView.setItemChecked(0,true);
-
-        ArrayAdapter adapter = new ArrayAdapter(getContext(),
-                android.R.layout.simple_list_item_multiple_choice, categories);
-
-        gridView.setAdapter(adapter);
-        final AutoCompleteTextView dayView = ((AutoCompleteTextView)view.findViewById(R.id.daytext));
-        final AutoCompleteTextView monthView = ((AutoCompleteTextView)view.findViewById(R.id.monthtext));
-        final AutoCompleteTextView yearView = ((AutoCompleteTextView)view.findViewById(R.id.yeartext));
-
-        for (int i = 0; i < categories.length; i++) {
-
-            gridView.setSelection(i);
-            gridView.setItemChecked(i,true);
-        }
+        final Spinner dayView = ((Spinner)view.findViewById(R.id.daytext));
+        final Spinner monthView = ((Spinner)view.findViewById(R.id.monthtext));
+        final Spinner yearView = ((Spinner)view.findViewById(R.id.yeartext));
 
 
         setTitle(R.string.gphotos_filter);
+       final int currentYear=Calendar.getInstance().get(Calendar.YEAR);
+        final String years[]= new String[30];
+        years[0]="All Years";
+        for (int i=0;i<30;i++){
+            years[i]=String.valueOf(currentYear-i);
+        }
+        ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, years );
+        yearView.setAdapter(spinnerArrayAdapter);
         view.findViewById(R.id.applyButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int day = dayView.getText().toString().length()>0?Integer.parseInt(dayView.getText().toString()):0;
-                int month = monthView.getText().toString().length()>0?Integer.parseInt(monthView.getText().toString()):0;
-                int year = yearView.getText().toString().length()>0?Integer.parseInt(yearView.getText().toString()):0;
+                int day = dayView.getSelectedItemPosition();
+                int month = monthView.getSelectedItemPosition();
+                int year = yearView.getSelectedItemPosition()!=0? (currentYear-yearView.getSelectedItemPosition()-1):0;
                onApplyFilterListener.filterApplied(day,month,year,Util.CATEGORIES);
 
             }

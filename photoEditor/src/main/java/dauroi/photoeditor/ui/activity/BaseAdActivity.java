@@ -32,10 +32,10 @@ public class BaseAdActivity extends BaseActivity {
             AdRequest adRequest = new AdRequest.Builder().addTestDevice(
                     AdRequest.DEVICE_ID_EMULATOR).build();
             // Start loading the ad in the background.
-            mAdView.loadAd(adRequest);
-            //Interstitial Ad Creator
-            mAdCreator = new InterstitialAdCreator(this);
-            mAdCreator.loadGoogleInterstitialAd();
+//            mAdView.loadAd(adRequest);
+//            //Interstitial Ad Creator
+//            mAdCreator = new InterstitialAdCreator(this);
+//            mAdCreator.loadGoogleInterstitialAd();
         }
     }
 

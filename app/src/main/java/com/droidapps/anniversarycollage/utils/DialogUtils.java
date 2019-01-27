@@ -391,6 +391,7 @@ public class DialogUtils {
 
             @Override
             public void onClick(View v) {
+                dialog.dismiss();
                 if (listener != null) {
                     listener.onGooglePhotosClick();
                 }

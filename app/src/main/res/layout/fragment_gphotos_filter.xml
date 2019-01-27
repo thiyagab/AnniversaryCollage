@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/linearLayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="180dp">
 
 
     <LinearLayout
@@ -12,35 +12,38 @@
         android:layout_width="match_parent"
         android:layout_height="100dp" android:orientation="horizontal"
         android:weightSum="3"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="10dp"
         >
-        <AutoCompleteTextView
+
+        <Spinner
             android:id="@+id/daytext"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:ems="10"
-            android:hint="day"
+            android:layout_marginLeft="10dp"
             android:layout_weight="1"
-            android:layout_marginLeft="20dp"
-            android:inputType="numberSigned"
-            />
+            android:dropDownWidth="wrap_content"
+            android:ems="10"
+            android:entries="@array/days"
+            android:hint="day"
+            android:spinnerMode="dropdown" />
 
-        <AutoCompleteTextView
+        <Spinner
             android:id="@+id/monthtext"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:ems="10"
             android:hint="month"
-            android:layout_marginLeft="20dp"
+            android:layout_marginLeft="10dp"
             android:layout_weight="1"
+            android:entries="@array/months"
             android:inputType="numberSigned"
              />
 
-        <AutoCompleteTextView
+        <Spinner
             android:id="@+id/yeartext"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginLeft="20dp"
+            android:layout_marginLeft="10dp"
             android:ems="10"
             android:hint="year"
             android:layout_weight="1"
@@ -49,27 +52,16 @@
     </LinearLayout>
 
 
-    <GridView
-        android:id="@+id/checkboxgroup"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/datefieldsgroup"
-        android:layout_above="@id/applyButton"
-        android:numColumns="2"
-
-        />
-
 
 
     <Button
         android:id="@+id/applyButton"
-        android:layout_width="88dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="Apply"
+        android:text="@string/search_gphotos"
 
         android:layout_alignParentBottom="true"
-        android:layout_marginTop="30dp"
         android:layout_centerHorizontal="true"
          />
 

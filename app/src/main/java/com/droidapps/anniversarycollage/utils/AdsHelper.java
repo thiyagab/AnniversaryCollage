@@ -105,16 +105,16 @@ public class AdsHelper {
     }
 
     public boolean showInterstitialAds() {
-        try {
-            if (mInterstitialAd.isLoaded()) {
-                mInterstitialAd.show();
-                return true;
-            } else {
-                return false;
-            }
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
+//        try {
+//            if (mInterstitialAd.isLoaded()) {
+//                mInterstitialAd.show();
+//                return true;
+//            } else {
+//                return false;
+//            }
+//        } catch (Exception ex) {
+//            ex.printStackTrace();
+//        }
         return false;
     }
 
@@ -138,11 +138,11 @@ public class AdsHelper {
     }
 
     private void requestNewInterstitial() {
-        try {
-            AdRequest adRequest = new AdRequest.Builder().addTestDevice(AdRequest.DEVICE_ID_EMULATOR).build();
-            mInterstitialAd.loadAd(adRequest);
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
+//        try {
+//            AdRequest adRequest = new AdRequest.Builder().addTestDevice(AdRequest.DEVICE_ID_EMULATOR).build();
+//            mInterstitialAd.loadAd(adRequest);
+//        } catch (Exception ex) {
+//            ex.printStackTrace();
+//        }
     }
 }

@@ -583,7 +583,7 @@ public class ImageProcessingActivity extends BaseAdActivity {
             mImage = image;
             mImageProcessingView.setImage(mImage);
         } else {
-            FirebaseCrash.report(new Exception("Set null image or recycled image"));
+//            FirebaseCrash.report(new Exception("Set null image or recycled image"));
         }
     }
 
@@ -591,9 +591,9 @@ public class ImageProcessingActivity extends BaseAdActivity {
         if (mImage == null || mImage.isRecycled()) {
             if (mImageUri != null) {
                 mImage = ImageDecoder.decodeUriToBitmap(ImageProcessingActivity.this, mImageUri);
-                FirebaseCrash.report(new Exception("mImage is null. Recreate!!!"));
+//                FirebaseCrash.report(new Exception("mImage is null. Recreate!!!"));
             } else {
-                FirebaseCrash.report(new Exception("mImage is null and mImageUri is also null!!!"));
+//                FirebaseCrash.report(new Exception("mImage is null and mImageUri is also null!!!"));
             }
         }
         return mImage;

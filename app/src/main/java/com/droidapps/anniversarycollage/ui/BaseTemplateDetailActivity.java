@@ -134,7 +134,7 @@ public abstract class BaseTemplateDetailActivity extends BasePhotoActivity imple
 
         if(extraImagePaths==null || extraImagePaths.isEmpty()){
             extraImagePaths= new ArrayList<>();
-            extraImagePaths.add("file:///android_asset/frame/collage_1_0.png");
+            extraImagePaths.add("file:///android_asset/frame/default_frame.png");
             extraImagePaths.add("file:///android_asset/frame/collage_1_0.png");
         }
         //pref
@@ -153,6 +153,8 @@ public abstract class BaseTemplateDetailActivity extends BasePhotoActivity imple
         mAddImageDialog.findViewById(R.id.dividerCameraView).setVisibility(View.GONE);
         mAddImageDialog.findViewById(R.id.galleryView).setVisibility(View.GONE);
         mAddImageDialog.findViewById(R.id.dividerGalleryView).setVisibility(View.GONE);
+        mAddImageDialog.findViewById(R.id.gphotosview).setVisibility(View.GONE);
+        mAddImageDialog.findViewById(R.id.dividerGPhotos).setVisibility(View.GONE);
         mAddImageView = mAddImageDialog.findViewById(R.id.dialogAddImage);
         //loading data
         if (savedInstanceState != null) {
@@ -446,7 +448,7 @@ public abstract class BaseTemplateDetailActivity extends BasePhotoActivity imple
 
 
     private void asyncSaveAndShare() {
-        AsyncTask<Void, Void, File> task = new AsyncTask<Void, Void, File>() {
+        AsyncTask<Void, Void, Uri> task = new AsyncTask<Void, Void, Uri>() {
             Dialog dialog;
             String errMsg;
 
@@ -457,7 +459,7 @@ public abstract class BaseTemplateDetailActivity extends BasePhotoActivity imple
             }
 
             @Override
-            protected File doInBackground(Void... params) {
+            protected Uri doInBackground(Void... params) {
                 try {
                     Bitmap image = createOutputImage();
                     String fileName = DateTimeUtils.getCurrentDateTime().replaceAll(":", "-").concat(".png");
@@ -467,8 +469,7 @@ public abstract class BaseTemplateDetailActivity extends BasePhotoActivity imple
                     }
                     File photoFile = new File(collageFolder, fileName);
                     image.compress(Bitmap.CompressFormat.PNG, 100, new FileOutputStream(photoFile));
-                    PhotoUtils.addImageToGallery(photoFile.getAbsolutePath(), BaseTemplateDetailActivity.this);
-                    return photoFile;
+                    return PhotoUtils.addImageToGallery(photoFile.getAbsolutePath(), BaseTemplateDetailActivity.this);
                 } catch (Exception ex) {
                     ex.printStackTrace();
                     errMsg = ex.getMessage();
@@ -481,7 +482,7 @@ public abstract class BaseTemplateDetailActivity extends BasePhotoActivity imple
             }
 
             @Override
-            protected void onPostExecute(File file) {
+            protected void onPostExecute(Uri file) {
                 super.onPostExecute(file);
                 try {
                     dialog.dismiss();
@@ -491,14 +492,14 @@ public abstract class BaseTemplateDetailActivity extends BasePhotoActivity imple
 
                 if (file != null) {
                     Intent share = new Intent(Intent.ACTION_SEND);
-//                    share.setType("image/png");
-//                    share.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(file));
-                    Uri apkURI = FileProvider.getUriForFile(
-                            BaseTemplateDetailActivity.this,
-                            getApplicationContext()
-                                    .getPackageName() + ".provider", file);
-                    share.setDataAndType(apkURI, "image/png");
-                    share.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                    share.setType("image/png");
+                    share.putExtra(Intent.EXTRA_STREAM, file);
+//                    Uri apkURI = FileProvider.getUriForFile(
+//                            BaseTemplateDetailActivity.this,
+//                            getApplicationContext()
+//                                    .getPackageName() + ".provider", file);
+//                    share.setDataAndType(apkURI, "image/png");
+//                    share.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
                     startActivity(Intent.createChooser(share, getString(R.string.photo_editor_share_image)));
                 } else if (errMsg != null) {
                     Toast.makeText(BaseTemplateDetailActivity.this, errMsg, Toast.LENGTH_LONG).show();

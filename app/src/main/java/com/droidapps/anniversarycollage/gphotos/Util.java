@@ -204,14 +204,16 @@ public class Util {
 
         SearchRequest searchRequest = new SearchRequest();
         Filters filters =new Filters();
-        DateFilter dateFilter = new DateFilter();
-        filters.dateFilter = dateFilter;
-        dateFilter.dates = new ArrayList<>();
-        com.droidapps.anniversarycollage.gphotos.model.Date date = new com.droidapps.anniversarycollage.gphotos.model.Date();
-        date.day=day;
-        date.month=month;
-        date.year=year;
-        dateFilter.dates.add(date);
+        if(!(day==0 && month==0 && year ==0)) {
+            DateFilter dateFilter = new DateFilter();
+            filters.dateFilter = dateFilter;
+            dateFilter.dates = new ArrayList<>();
+            com.droidapps.anniversarycollage.gphotos.model.Date date = new com.droidapps.anniversarycollage.gphotos.model.Date();
+            date.day = day;
+            date.month = month;
+            date.year = year;
+            dateFilter.dates.add(date);
+        }
         searchRequest.pageSize=(long)PAGE_SIZE;
         filters.mediaTypeFilter = new MediaTypeFilter();
         filters.mediaTypeFilter.mediaTypes= new ArrayList<>(1);

@@ -3,11 +3,11 @@
     <color name="menu_item_text">#E9BCA1</color>
     <!-- a good place to try different colors is http://www.materialpalette.com/ -->
     <!-- 500 color -->
-    <color name="primaryColor">#f1b33a</color>
+    <color name="primaryColor">#607D8B</color>
     <!-- 700 color -->
-    <color name="primaryColorDark">#f1b33a</color>
+    <color name="primaryColorDark">#455A64</color>
     <!-- A200 other color, so pink...? -->
-    <color name="accentColor">#FF4081</color>
+    <color name="accentColor">#607D8B</color>
     <color name="rippleColor">#ff80ab</color>
     <color name="accentColor_pressed">#f50057</color>
     <color name="primaryColorLight">#0f0f0f</color>
