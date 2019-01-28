@@ -134,8 +134,8 @@ public abstract class BaseTemplateDetailActivity extends BasePhotoActivity imple
 
         if(extraImagePaths==null || extraImagePaths.isEmpty()){
             extraImagePaths= new ArrayList<>();
-            extraImagePaths.add("file:///android_asset/frame/default_frame.png");
-            extraImagePaths.add("file:///android_asset/frame/collage_1_0.png");
+            extraImagePaths.add("file:///android_asset/defaultbg/1.png");
+            extraImagePaths.add("file:///android_asset/defaultbg/0.png");
         }
         //pref
         mPreferences = getSharedPreferences(Constant.PREF_NAME, Context.MODE_PRIVATE);
