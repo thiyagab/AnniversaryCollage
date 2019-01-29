@@ -8,11 +8,11 @@
         android:icon="@drawable/ic_share_white"
         android:title="@string/done"
         app:showAsAction="always"/>
-    <item
-        android:id="@+id/action_add"
-        android:icon="@drawable/ic_add_white"
-        android:title=""
-        app:showAsAction="always"/>
+    <!--<item-->
+        <!--android:id="@+id/action_add"-->
+        <!--android:icon="@drawable/ic_add_white"-->
+        <!--android:title=""-->
+        <!--app:showAsAction="always"/>-->
 
     <item
         android:id="@+id/action_help"

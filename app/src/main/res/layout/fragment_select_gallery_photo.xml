@@ -21,6 +21,6 @@
         android:layout_height="wrap_content" android:layout_centerInParent="true"
         android:textSize="16sp"
         android:gravity="center"
-        android:text="Its Empty in here.\nWhy dont you search your birthday?"
+        android:text="Its Empty in here.\nWhy don't you try searching your birthday?"
         />
 </RelativeLayout>

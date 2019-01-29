@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.droidapps.anniversarycollage.R;
@@ -67,6 +68,7 @@ public class FrameDetailActivity extends BaseTemplateDetailActivity implements F
     private ColorPickerDialog mColorPickerDialog;
     //Saved instance state
     private Bundle mSavedInstanceState;
+    private TextView mTipText;
 
     @Override
     protected boolean isShowingAllTemplates() {
@@ -142,6 +144,7 @@ public class FrameDetailActivity extends BaseTemplateDetailActivity implements F
                     .commit();
         }
         requestPermissions();
+        mTipText=findViewById(R.id.tipText);
     }
 
     @Override
@@ -328,6 +331,11 @@ public class FrameDetailActivity extends BaseTemplateDetailActivity implements F
 //        startActivityForResult(data, REQUEST_SELECT_PHOTO);
     }
 
+    public void onTextActionClick(FrameImageView v){
+        mTipText.setText("Tip: Double tap on text for more options");
+        onTextButtonClick();
+    }
+
     @Override
     protected void resultEditImage(Uri uri) {
         if (mSelectedFrameImageView != null) {
@@ -337,6 +345,7 @@ public class FrameDetailActivity extends BaseTemplateDetailActivity implements F
 
     @Override
     protected void resultFromPhotoEditor(Uri image) {
+        mTipText.setText("Tip: Use two fingers to zoom/crop and rotate");
         if (mSelectedFrameImageView != null) {
             mSelectedFrameImageView.setImagePath(FileUtils.getPath(this, image));
         }

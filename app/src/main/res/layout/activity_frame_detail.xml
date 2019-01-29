@@ -7,13 +7,23 @@
     <include
         android:id="@+id/toolbarLayout"
         layout="@layout/toolbar"/>
-
+    <TextView
+        android:id="@+id/tipText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" android:layout_centerHorizontal="true"
+        android:textSize="12sp"
+        android:gravity="center"
+        android:layout_margin="10dp"
+        android:layout_below="@+id/toolbarLayout"
+        android:textColor="@android:color/black"
+        android:text="Tip: Tap on the pic for more options"
+        />
 
     <RelativeLayout
         android:id="@+id/containerLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/toolbarLayout"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tipText"
         android:layout_above="@+id/spaceLayout"
         />
 

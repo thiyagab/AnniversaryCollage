@@ -33,6 +33,8 @@ public class FramePhotoLayout extends RelativeLayout implements FrameImageView.O
         void onEditActionClick(FrameImageView v);
 
         void onChangeActionClick(FrameImageView v);
+
+        void onTextActionClick(FrameImageView v);
     }
 
     OnDragListener mOnDragListener = new OnDragListener() {
@@ -77,6 +79,7 @@ public class FramePhotoLayout extends RelativeLayout implements FrameImageView.O
     private static final int ID_CHANGE = 2;
     private static final int ID_DELETE = 3;
     private static final int ID_CANCEL = 4;
+    private static final int ID_TEXT=5;
 
     private QuickAction mQuickAction;
 
@@ -136,7 +139,9 @@ public class FramePhotoLayout extends RelativeLayout implements FrameImageView.O
         QuickActionItem editItem = new QuickActionItem(ID_EDIT, getContext().getString(R.string.edit), getResources().getDrawable(R.drawable.menu_edit));
         QuickActionItem changeItem = new QuickActionItem(ID_CHANGE, getContext().getString(R.string.change), getResources().getDrawable(R.drawable.menu_change));
         QuickActionItem deleteItem = new QuickActionItem(ID_DELETE, getContext().getString(R.string.delete), getResources().getDrawable(R.drawable.menu_delete));
-        QuickActionItem cancelItem = new QuickActionItem(ID_CANCEL, getContext().getString(R.string.cancel), getResources().getDrawable(R.drawable.menu_cancel));
+//        QuickActionItem cancelItem = new QuickActionItem(ID_CANCEL, getContext().getString(R.string.text), getResources().getDrawable(R.drawable.photo_editor_ic_text_pressed));
+
+        QuickActionItem textItem = new QuickActionItem(ID_TEXT, getContext().getString(R.string.text), getResources().getDrawable(R.drawable.menu_text));
 
         //use setSticky(true) to disable QuickAction dialog being dismissed after an item is clicked
 //        editItem.setSticky(true);
@@ -149,8 +154,8 @@ public class FramePhotoLayout extends RelativeLayout implements FrameImageView.O
         //add action items into QuickAction
         mQuickAction.addActionItem(changeItem);
         mQuickAction.addActionItem(editItem);
-        mQuickAction.addActionItem(deleteItem);
-        mQuickAction.addActionItem(cancelItem);
+//        mQuickAction.addActionItem(deleteItem);
+        mQuickAction.addActionItem(textItem);
 
         //Set listener for action item clicked
         mQuickAction.setOnActionItemClickListener(new QuickAction.OnActionItemClickListener() {
@@ -162,13 +167,18 @@ public class FramePhotoLayout extends RelativeLayout implements FrameImageView.O
                 if (actionId == ID_DELETE) {
                     FrameImageView v = (FrameImageView) mQuickAction.getAnchorView();
                     v.clearMainImage();
-                } else if (actionId == ID_EDIT) {
+                }
+                else if (actionId == ID_EDIT) {
                     if (mQuickActionClickListener != null) {
                         mQuickActionClickListener.onEditActionClick((FrameImageView) mQuickAction.getAnchorView());
                     }
                 } else if (actionId == ID_CHANGE) {
                     if (mQuickActionClickListener != null) {
                         mQuickActionClickListener.onChangeActionClick((FrameImageView) mQuickAction.getAnchorView());
+                    }
+                } else if (actionId ==ID_TEXT){
+                    if (mQuickActionClickListener != null) {
+                        mQuickActionClickListener.onTextActionClick((FrameImageView) mQuickAction.getAnchorView());
                     }
                 }
             }
