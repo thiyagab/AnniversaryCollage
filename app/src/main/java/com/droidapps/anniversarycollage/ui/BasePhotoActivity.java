@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.v4.content.FileProvider;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -240,9 +241,12 @@ public abstract class BasePhotoActivity extends AdsFragmentActivity implements
         File file = new File(Environment.getExternalStorageDirectory().getAbsolutePath()
                 + "/DCIM", capturedPath);
         file.getParentFile().mkdirs();
-        mCapturedImageUri = Uri.fromFile(file);
+        mCapturedImageUri =
+//                Uri.fromFile(file);
+        FileProvider.getUriForFile(this, getApplicationContext().getPackageName() + ".provider", file);
 
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
         intent.putExtra(MediaStore.EXTRA_OUTPUT, mCapturedImageUri);
         startActivityForResult(intent, CAPTURE_IMAGE_REQUEST_CODE);
     }

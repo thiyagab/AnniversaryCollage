@@ -37,7 +37,7 @@
     <string name="gallery">Gallery</string>
     <string name="done">Done</string>
     <string name="guide_add_image">Tap to add photos, stickers or background</string>
-    <string name="guide_select_image">Tap to select the image</string>
+    <string name="guide_select_image">Tap on image for options</string>
     <string name="guide_drag_image">Press to drag</string>
     <string name="guide_zoom_in">Use two fingers to zoom in and rotate</string>
     <string name="guide_zoom_out">Use two fingers to zoom out and rotate</string>

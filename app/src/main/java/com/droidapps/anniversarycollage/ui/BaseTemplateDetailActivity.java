@@ -161,7 +161,7 @@ public abstract class BaseTemplateDetailActivity extends BasePhotoActivity imple
         if (savedInstanceState != null) {
             mClickedShareButton = savedInstanceState.getBoolean("mClickedShareButton", false);
             final int idx = savedInstanceState.getInt("mSelectedTemplateItemIndex", 0);
-            mImageInTemplateCount = savedInstanceState.getInt("mImageInTemplateCount", 0);
+            mImageInTemplateCount = savedInstanceState.getInt("mImageInTemplateCount", 2);
             mIsFrameImage = savedInstanceState.getBoolean("mIsFrameImage", false);
             loadFrameImages(mIsFrameImage);
             ALog.d(TAG, "onCreate, mTemplateItemList size=" + mTemplateItemList.size() + ", selected idx=" + idx + ", mImageInTemplateCount=" + mImageInTemplateCount);

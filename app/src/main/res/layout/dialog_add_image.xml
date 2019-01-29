@@ -40,7 +40,7 @@
             android:text="@string/camera"
             android:textColor="#007AFF"
             android:textSize="16sp"
-            android:visibility="visible"/>
+            android:visibility="gone"/>
 
         <View
             android:id="@+id/dividerCameraView"

@@ -95,7 +95,7 @@ CREATE TABLE Crop (
 	last_modified	TEXT,
 	status	TEXT
 );
-INSERT INTO Crop VALUES (1,'Square','assets://images/crop_ic_square.png','assets://images/crop_ic_square_selected.png','assets://images/crop_square.png','assets://images/crop_square_bg.png',0,'2015-10-15 21:16:12','active');
+INSERT INTO Crop VALUES (1,'Box','assets://images/crop_ic_square.png','assets://images/crop_ic_square_selected.png','assets://images/crop_square.png','assets://images/crop_square_bg.png',0,'2015-10-15 21:16:12','active');
 INSERT INTO Crop VALUES (2,'Balloon','assets://images/crop_ic_balloon.png','assets://images/crop_ic_balloon_selected.png','assets://images/crop_balloon.png','assets://images/crop_balloon_bg.png',0,'2015-10-15 21:16:12','active');
 INSERT INTO Crop VALUES (3,'Heart','assets://images/crop_ic_heart.png','assets://images/crop_ic_heart_selected.png','assets://images/crop_heart.png','assets://images/crop_heart_bg.png',0,'2015-10-15 21:16:12','active');
 INSERT INTO Crop VALUES (4,'Cog','assets://images/crop_ic_cog.png','assets://images/crop_ic_cog_selected.png','assets://images/crop_cog.png','assets://images/crop_cog_bg.png',0,'2015-10-15 21:16:12','active');

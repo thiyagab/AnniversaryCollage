@@ -29,14 +29,14 @@
                     android:layout_width="@dimen/guide_icon_width"
                     android:layout_height="wrap_content"
                     android:contentDescription="@string/app_name"
-                    android:src="@drawable/ges_doubletap"/>
+                    android:src="@drawable/ges_tap"/>
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
                     android:gravity="center_vertical"
-                    android:text="@string/guide_option"
+                    android:text="@string/guide_select_image"
                     android:textColor="@android:color/white"/>
             </LinearLayout>
 
@@ -64,27 +64,7 @@
             </LinearLayout>
 
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
 
-                <ImageView
-                    android:layout_width="@dimen/guide_icon_width"
-                    android:layout_height="wrap_content"
-                    android:contentDescription="@string/app_name"
-                    android:src="@drawable/ges_tap"/>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:gravity="center_vertical"
-                    android:text="@string/guide_select_image"
-                    android:textColor="@android:color/white"/>
-            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -172,27 +152,6 @@
                     android:textColor="@android:color/white"/>
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="@dimen/guide_icon_width"
-                    android:layout_height="wrap_content"
-                    android:contentDescription="@string/app_name"
-                    android:src="@drawable/ic_add_white"/>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:gravity="center_vertical"
-                    android:text="@string/guide_add_image"
-                    android:textColor="@android:color/white"/>
-            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 </FrameLayout>

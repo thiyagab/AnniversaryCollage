@@ -1,5 +1,6 @@
 package com.droidapps.anniversarycollage.ui;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -143,7 +144,7 @@ public class FrameDetailActivity extends BaseTemplateDetailActivity implements F
             mPreferences.edit().putBoolean(Constant.SHOW_GUIDE_CREATE_FRAME_KEY, false)
                     .commit();
         }
-        requestPermissions();
+        requestPermissions(REQUEST);
         mTipText=findViewById(R.id.tipText);
     }
 
@@ -283,16 +284,21 @@ public class FrameDetailActivity extends BaseTemplateDetailActivity implements F
         }
     }
     private static final int REQUEST = 112;
-    public void requestPermissions(){
+    private static final int REQUEST_PHOTO = 113;
+    public void requestPermissions(int requestCode){
         if (Build.VERSION.SDK_INT >= 23) {
             String[] PERMISSIONS = {android.Manifest.permission.WRITE_EXTERNAL_STORAGE};
             if (!hasPermissions(this, PERMISSIONS)) {
-                requestPermissions(PERMISSIONS, REQUEST );
+                requestPermissions(PERMISSIONS, requestCode );
             } else {
-                //do here
+                if(requestCode==REQUEST_PHOTO){
+                    requestPhoto();
+                }
             }
         } else {
-            //do here
+            if(requestCode==REQUEST_PHOTO){
+                requestPhoto();
+            }
         }
 
     }
@@ -319,20 +325,31 @@ public class FrameDetailActivity extends BaseTemplateDetailActivity implements F
                     Toast.makeText(this, "The app cannot create collage without storage permissions", Toast.LENGTH_LONG).show();
                 }
             }
+            break;
+            case REQUEST_PHOTO:{
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    requestPhoto();
+                } else {
+                    Toast.makeText(this, "The app cannot create collage without permissions", Toast.LENGTH_LONG).show();
+                }
+            }
+            break;
+
         }
     }
 
     @Override
     public void onChangeActionClick(FrameImageView v) {
         mSelectedFrameImageView = v;
-        requestPhoto();
+        requestPermissions(REQUEST_PHOTO);
+//        requestPhoto();
 //        Intent data = new Intent(this, SelectPhotoActivity.class);
 //        data.putExtra(SelectPhotoActivity.EXTRA_IMAGE_COUNT, 1);
 //        startActivityForResult(data, REQUEST_SELECT_PHOTO);
     }
 
     public void onTextActionClick(FrameImageView v){
-        mTipText.setText("Tip: Double tap on text for more options");
+        mTipText.setText("Tip: Double tap on Text for more options or use two fingers to zoom and rotate");
         onTextButtonClick();
     }
 
