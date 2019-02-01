@@ -57,6 +57,8 @@ public class Util {
 
     public static final String[] CATEGORIES={"LANDSCAPES", "RECEIPTS", "CITYSCAPES", "LANDMARKS", "SELFIES", "PEOPLE", "PETS", "WEDDINGS", "BIRTHDAYS", "DOCUMENTS", "TRAVEL", "ANIMALS", "FOOD", "SPORT", "NIGHT", "PERFORMANCES", "WHITEBOARDS", "SCREENSHOTS", "UTILITY"};
 
+    static final String TAG="ANNIVERSARY_COLLAGE";
+
     public static void initializeGooglePhotos(Activity activity){
 
 
@@ -93,6 +95,7 @@ public class Util {
             // a listener.
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             handleSignInResult(task,activity);
+            Log.i(TAG,"handling activity result");
         }
     }
 
