@@ -39,31 +39,21 @@
             android:inputType="numberSigned"
              />
 
-        <Spinner
-            android:id="@+id/yeartext"
+        <Button
+            android:id="@+id/applyButton"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="10dp"
-            android:ems="10"
-            android:hint="year"
-            android:layout_weight="1"
-            android:inputType="numberSigned"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/search_gphotos"
+
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
             />
     </LinearLayout>
 
 
 
 
-    <Button
-        android:id="@+id/applyButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="@string/search_gphotos"
-
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-         />
 
 
 </RelativeLayout>

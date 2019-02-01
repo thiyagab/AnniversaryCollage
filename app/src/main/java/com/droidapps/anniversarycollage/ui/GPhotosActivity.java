@@ -24,6 +24,9 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import dauroi.photoeditor.utils.FileUtils;
 import dauroi.photoeditor.utils.PhotoUtils;
@@ -54,13 +57,41 @@ public class GPhotosActivity extends BaseFragmentActivity implements GalleryAlbu
         }
 
         initFilterView();
+        initBottomPhotoSelectionView();
 
+    }
+
+    private void initBottomPhotoSelectionView() {
+        //TODO 4
+        /*
+        Copy the bottom photo selection list from 'SelectPhotoActivity', so that this view would be three sections
+        1. Top date,month selection and search button
+        2. Middle list of cards to show the years and number of photos in each year
+        3. Bottom selection photo list, which will be persistent, when user click on a card and it ll show list of all images, in this new screen also,
+        this bottom list will be shown to show the list of selected pics
+        4. User can do multiple selections in single year or come back and select different year and pick multiple photos across years
+        5. All the selected pics will be shown in this bottom list, and at the end of the list there will be a button called create
+        6. On Click on create, the selected pics will be taken to next CollageActivity via collageButtonClicked
+         */
+    }
+
+    private void collageButtonClicked(String[] selectedPicUris){
+        //TODO 5
+        /*
+        1. Open Frame Detail activity with the selectedPicUris
+        2. Check the BaseTemplateDetailActivity where we can pass the imageuris
+        3. Based on the number of pics the array length of selectedPicUris, the mImageInTemplateCount in 'BaseTemplateDetailActivity'
+            can be set
+        4. The above option will show a fixed defined set of frames, we also need to see how can we do freeform collage
+        5. The freeform collage can be made using "PhotoCollageActivity
+        6. So on click of create itself, it will ask an option, either to do freeform collage (then direct to step 5) or based on template ( direct to step 3)
+
+         */
     }
 
     private void initFilterView() {
         final Spinner dayView = ((Spinner)findViewById(R.id.daytext));
         final Spinner monthView = ((Spinner)findViewById(R.id.monthtext));
-        final Spinner yearView = ((Spinner)findViewById(R.id.yeartext));
 
 
         setTitle(R.string.gphotos_filter);
@@ -70,21 +101,57 @@ public class GPhotosActivity extends BaseFragmentActivity implements GalleryAlbu
         for (int i=0;i<30;i++){
             years[i]=String.valueOf(currentYear-i);
         }
-        ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, years );
-        yearView.setAdapter(spinnerArrayAdapter);
+
         applybutton =(Button)findViewById(R.id.applyButton);
         applybutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 int day = dayView.getSelectedItemPosition();
                 int month = monthView.getSelectedItemPosition();
-                int year = yearView.getSelectedItemPosition()!=0? (currentYear-yearView.getSelectedItemPosition()-1):0;
-                filterApplied(day,month,year,Util.CATEGORIES);
+//                int year = yearView.getSelectedItemPosition()!=0? (currentYear-yearView.getSelectedItemPosition()-1):0;
+//                filterApplied(day,month,0,Util.CATEGORIES);
                 applybutton.setText("Searching...");
+                startFetchingForAllYears(day,month);
 
             }
         });
+
+        initListView();
     }
+
+    private void initListView() {
+        //TODO 1 The listview will be a list of cards
+        // Each card will show the year and number of photos in that year
+        // Create proper view and adapter and set it here
+    }
+
+
+    Map<Integer,SearchResponse> yearWiseSearchResults = new HashMap<>();
+
+    private void startFetchingForAllYears(int day, int month) {
+        //TODO 2
+        /*Call this method,
+        filterApplied(day,month,2019,Util.CATEGORIES);
+        for every year in a for loop, starting form this year to 10 years before e.g. 2019-2009
+        We can try calling thse requests in a thread, and as the requests in progress, show a progress in each card
+        on successfull respone update the map 'yearwisesearchresults', then
+        in the list view as initiated in the above method 'initListView', the list would aleady be initiated with the map data, so it should be updated
+        as and when we receive responses
+        From each response, set the number alone in each card, on click show all the pics in a new view ( new view design discussed later)
+        */
+    }
+
+    private void onYearListItemSelected(int year){
+        SearchResponse searchResponse=yearWiseSearchResults.get(year);
+        List<MediaItem> photos=searchResponse.mediaItems;
+
+
+        //TODO 3
+        /*
+        Pass the list of photos to select photo  , "GalleryAlbumImageFrament" will do the job
+         */
+    }
+
 
     @Override
     public void onSelectImage(final String imageUrl) {
